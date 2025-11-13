@@ -8,7 +8,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Calendar } from "@/components/ui/calendar";
 import {
   Form,
   FormControl,
@@ -20,17 +19,12 @@ import {
 import { FormProgress } from "@/components/FormProgress";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
-import { nl } from "date-fns/locale";
 
 const formSchema = z.object({
   producten: z.array(z.string()).min(1, "Selecteer minimaal één product"),
   anderProduct: z.string().optional(),
   aantalKozijnen: z.string().optional(),
   orientatie: z.string().min(1, "Maak een keuze"),
-  datum: z.date({
-    required_error: "Selecteer een datum",
-  }),
-  tijd: z.string().min(1, "Selecteer een tijd"),
   voornaam: z.string().min(1, "Voornaam is verplicht"),
   achternaam: z.string().min(1, "Achternaam is verplicht"),
   adres: z.string().optional(),
@@ -70,21 +64,14 @@ const ShowroomRoute = () => {
     if (currentStep === 1) {
       fields = ["producten", "orientatie"];
       if (showKozijnenVraag) fields.push("aantalKozijnen");
-    } else if (currentStep === 2) {
-      fields = ["datum", "tijd"];
     }
+    // Step 2 is now Calendly embed, no validation needed
     
-    const isValid = await form.trigger(fields);
+    const isValid = fields.length > 0 ? await form.trigger(fields) : true;
     if (isValid) {
       setCurrentStep(currentStep + 1);
     }
   };
-
-  const timeSlots = [
-    "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
-    "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
-    "15:00", "15:30", "16:00", "16:30", "17:00"
-  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-secondary/30 to-background py-12">
@@ -250,49 +237,30 @@ const ShowroomRoute = () => {
 
                 {currentStep === 2 && (
                   <div className="space-y-6 animate-in fade-in duration-300">
-                    <FormField
-                      control={form.control}
-                      name="datum"
-                      render={({ field }) => (
-                        <FormItem className="flex flex-col">
-                          <FormLabel>Selecteer een datum *</FormLabel>
-                          <Calendar
-                            mode="single"
-                            selected={field.value}
-                            onSelect={field.onChange}
-                            locale={nl}
-                            disabled={(date) => date < new Date() || date.getDay() === 0}
-                            className="rounded-md border pointer-events-auto"
-                          />
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name="tijd"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Selecteer een tijd *</FormLabel>
-                          <div className="grid grid-cols-4 gap-2">
-                            {timeSlots.map((time) => (
-                              <Button
-                                key={time}
-                                type="button"
-                                variant={field.value === time ? "default" : "outline"}
-                                size="sm"
-                                onClick={() => field.onChange(time)}
-                                className="w-full"
-                              >
-                                {time}
-                              </Button>
-                            ))}
-                          </div>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                    <div className="space-y-4">
+                      <div>
+                        <h3 className="text-lg font-semibold mb-2">Plan je afspraak</h3>
+                        <p className="text-sm text-muted-foreground mb-4">
+                          Selecteer hieronder een datum en tijd die je het beste uitkomt
+                        </p>
+                      </div>
+                      
+                      {/* Calendly Inline Widget */}
+                      <div className="rounded-lg border bg-card overflow-hidden" style={{ minHeight: '700px' }}>
+                        <iframe
+                          src="https://calendly.com/jouw-calendly-link"
+                          width="100%"
+                          height="700"
+                          frameBorder="0"
+                          title="Calendly Afspraak"
+                          className="rounded-lg"
+                        />
+                      </div>
+                      
+                      <p className="text-xs text-muted-foreground text-center">
+                        ⚠️ Vervang de Calendly URL in de code met jouw eigen Calendly link
+                      </p>
+                    </div>
 
                     <div className="flex gap-4">
                       <Button
