@@ -6,11 +6,11 @@ const ThankYouThuisAfspraak = () => {
   const navigate = useNavigate();
 
   const inspirationLinks = [
-    { title: "Kozijnen", href: "#" },
-    { title: "Deuren", href: "#" },
-    { title: "Schuifpuien", href: "#" },
-    { title: "Dakkapellen", href: "#" },
-    { title: "Gevelbekleding", href: "#" },
+    { title: "Kozijnen", href: "https://www.kupro.nl/producten/kunststof-kozijnen" },
+    { title: "Deuren", href: "https://www.kupro.nl/producten/kunststof-deuren" },
+    { title: "Schuifpuien", href: "https://www.kupro.nl/producten/schuifpuien" },
+    { title: "Dakkapellen", href: "https://www.kupro.nl/producten/dakkapellen" },
+    { title: "Gevelbekleding", href: "https://www.kupro.nl/producten/kunststof-gevelbekleding" },
   ];
 
   return (
@@ -51,11 +51,13 @@ const ThankYouThuisAfspraak = () => {
 
             <Button
               size="lg"
-              onClick={() => navigate("/contact-aanvragen")}
+              asChild
               className="gap-2"
             >
-              <Home className="w-4 h-4" />
-              Terug naar home
+              <a href="https://www.kupro.nl/">
+                <Home className="w-4 h-4" />
+                Terug naar home
+              </a>
             </Button>
           </div>
         </div>
