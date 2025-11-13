@@ -51,7 +51,7 @@ const ThankYouInformatie = () => {
 
             <Button
               size="lg"
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/contact-aanvragen")}
               className="gap-2"
             >
               <Home className="w-4 h-4" />

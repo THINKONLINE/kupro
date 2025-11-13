@@ -10,25 +10,25 @@ const HomePage = () => {
     {
       icon: Calendar,
       title: "Ik wil graag een afspraak maken in de showroom",
-      route: "/showroom",
+      route: "/showroom-afspraak",
       variant: "default" as const,
     },
     {
       icon: Home,
       title: "Ik wil graag een thuis afspraak maken",
-      route: "/offerte?type=thuisafspraak",
+      route: "/thuis-afspraak",
       variant: "default" as const,
     },
     {
       icon: FileText,
       title: "Ik wil graag een offerte aanvragen",
-      route: "/offerte?type=offerte",
+      route: "/offerte-aanvragen",
       variant: "default" as const,
     },
     {
       icon: Info,
       title: "Ik wil graag meer informatie opvragen",
-      route: "/informatie",
+      route: "/informatie-aanvragen",
       variant: "secondary" as const,
     },
   ];

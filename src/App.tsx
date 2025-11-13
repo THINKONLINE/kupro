@@ -8,6 +8,7 @@ import OfferteRoute from "./pages/OfferteRoute";
 import ShowroomRoute from "./pages/ShowroomRoute";
 import InformatieRoute from "./pages/InformatieRoute";
 import ThankYouOfferte from "./pages/ThankYouOfferte";
+import ThankYouThuisAfspraak from "./pages/ThankYouThuisAfspraak";
 import ThankYouShowroom from "./pages/ThankYouShowroom";
 import ThankYouInformatie from "./pages/ThankYouInformatie";
 import NotFound from "./pages/NotFound";
@@ -21,13 +22,16 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
+          <Route path="/contact-aanvragen" element={<Index />} />
           <Route path="/" element={<Index />} />
-          <Route path="/offerte" element={<OfferteRoute />} />
-          <Route path="/showroom" element={<ShowroomRoute />} />
-          <Route path="/informatie" element={<InformatieRoute />} />
-          <Route path="/bedankt/offerte" element={<ThankYouOfferte />} />
-          <Route path="/bedankt/showroom" element={<ThankYouShowroom />} />
-          <Route path="/bedankt/informatie" element={<ThankYouInformatie />} />
+          <Route path="/thuis-afspraak" element={<OfferteRoute />} />
+          <Route path="/offerte-aanvragen" element={<OfferteRoute />} />
+          <Route path="/showroom-afspraak" element={<ShowroomRoute />} />
+          <Route path="/informatie-aanvragen" element={<InformatieRoute />} />
+          <Route path="/bedankt-thuis-afspraak" element={<ThankYouThuisAfspraak />} />
+          <Route path="/bedankt-offerte" element={<ThankYouOfferte />} />
+          <Route path="/bedankt-showroom" element={<ThankYouShowroom />} />
+          <Route path="/bedankt-informatie" element={<ThankYouInformatie />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
