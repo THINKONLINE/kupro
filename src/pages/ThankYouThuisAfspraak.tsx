@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, Home } from "lucide-react";
 
-const ThankYouShowroom = () => {
+const ThankYouThuisAfspraak = () => {
   const navigate = useNavigate();
 
   const inspirationLinks = [
@@ -23,11 +23,11 @@ const ThankYouShowroom = () => {
             </div>
             
             <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Je afspraak is ingepland!
+              Bedankt voor je bericht!
             </h1>
             
             <p className="text-lg text-muted-foreground mb-8">
-              We kijken ernaar uit om je te ontmoeten in onze showroom. Je ontvangt binnen twee werkdagen een bevestiging.
+              We gaan voor je aan de slag – je hoort binnen twee werkdagen van ons.
             </p>
 
             <div className="bg-secondary/50 rounded-xl p-6 mb-8">
@@ -64,4 +64,4 @@ const ThankYouShowroom = () => {
   );
 };
 
-export default ThankYouShowroom;
+export default ThankYouThuisAfspraak;

@@ -68,7 +68,7 @@ const InformatieRoute = () => {
   const onSubmit = (data: FormData) => {
     console.log("Form submitted:", data);
     toast.success("Aanvraag verzonden!");
-    navigate("/bedankt/informatie");
+    navigate("/bedankt-informatie");
   };
 
   const nextStep = async () => {
@@ -91,7 +91,7 @@ const InformatieRoute = () => {
         <div className="max-w-2xl mx-auto">
           <Button
             variant="ghost"
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/contact-aanvragen")}
             className="mb-6"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />

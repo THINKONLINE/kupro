@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -36,10 +36,9 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 const OfferteRoute = () => {
-  const [searchParams] = useSearchParams();
-  const type = searchParams.get("type");
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
+  const isThuisAfspraak = window.location.pathname === "/thuis-afspraak";
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -52,7 +51,7 @@ const OfferteRoute = () => {
   const onSubmit = (data: FormData) => {
     console.log("Form submitted:", data);
     toast.success("Formulier verzonden!");
-    navigate("/bedankt/offerte");
+    navigate(isThuisAfspraak ? "/bedankt-thuis-afspraak" : "/bedankt-offerte");
   };
 
   const nextStep = async () => {
@@ -66,7 +65,7 @@ const OfferteRoute = () => {
     }
   };
 
-  const title = type === "thuisafspraak" ? "Thuisafspraak maken" : "Offerte aanvragen";
+  const title = isThuisAfspraak ? "Thuisafspraak maken" : "Offerte aanvragen";
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-secondary/30 to-background py-12">
@@ -74,7 +73,7 @@ const OfferteRoute = () => {
         <div className="max-w-2xl mx-auto">
           <Button
             variant="ghost"
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/contact-aanvragen")}
             className="mb-6"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
