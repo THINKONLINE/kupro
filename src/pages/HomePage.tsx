@@ -8,6 +8,12 @@ const HomePage = () => {
 
   const options = [
     {
+      icon: FileText,
+      title: "Ik wil graag een offerte aanvragen",
+      route: "/offerte-aanvragen",
+      variant: "default" as const,
+    },
+    {
       icon: Calendar,
       title: "Ik wil graag een afspraak maken in de showroom",
       route: "/showroom-afspraak",
@@ -17,12 +23,6 @@ const HomePage = () => {
       icon: Home,
       title: "Ik wil graag een thuis afspraak maken",
       route: "/thuis-afspraak",
-      variant: "default" as const,
-    },
-    {
-      icon: FileText,
-      title: "Ik wil graag een offerte aanvragen",
-      route: "/offerte-aanvragen",
       variant: "default" as const,
     },
     {
