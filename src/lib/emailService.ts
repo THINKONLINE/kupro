@@ -1,13 +1,13 @@
 import emailjs from '@emailjs/browser';
 
-// EmailJS configuratie - pas deze waarden aan in EmailJS dashboard
-const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID'; // Te wijzigen
-const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID'; // Te wijzigen
-const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY'; // Te wijzigen
+// EmailJS configuratie
+const EMAILJS_SERVICE_ID = 'service_eu83xgf';
+const EMAILJS_TEMPLATE_ID = 'template_g5vf9at';
+const EMAILJS_PUBLIC_KEY = 'd8wPu78CAEwTUSYvx';
 
 // Email configuratie - hier kun je het ontvangende emailadres aanpassen
 export const EMAIL_CONFIG = {
-  recipientEmail: 'demy@think-online.nl', // <- Hier kun je het emailadres wijzigen
+  recipientEmail: 'think.online.test@gmail.com', // <- Hier kun je het emailadres wijzigen
 };
 
 export interface FormSubmissionData {
