@@ -19,6 +19,7 @@ import {
 import { FormProgress } from "@/components/FormProgress";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
+import { sendFormEmail } from "@/lib/emailService";
 
 const formSchema = z.object({
   producten: z.array(z.string()).min(1, "Selecteer minimaal één product"),
@@ -53,10 +54,36 @@ const ShowroomRoute = () => {
   const watchProducten = form.watch("producten");
   const showKozijnenVraag = watchProducten?.includes("kozijnen");
 
-  const onSubmit = (data: FormData) => {
-    console.log("Form submitted:", data);
-    toast.success("Afspraak gepland!");
-    navigate("/bedankt-showroom");
+  const onSubmit = async (data: FormData) => {
+    try {
+      // Verzend email met formuliergegevens
+      await sendFormEmail({
+        type: 'Showroom afspraak',
+        pageUrl: window.location.href,
+        timestamp: new Date().toLocaleString('nl-NL'),
+        fields: {
+          voornaam: data.voornaam,
+          achternaam: data.achternaam,
+          adres: data.adres,
+          huisnummer: data.nummer,
+          postcode: data.postcode,
+          woonplaats: data.woonplaats,
+          email: data.email,
+          telefoon: data.telefoon,
+          opmerking: data.opmerkingen,
+          products: data.producten,
+          anderProduct: data.anderProduct,
+          aantalKozijnen: data.aantalKozijnen,
+          orientation: data.orientatie,
+        }
+      });
+      
+      toast.success("Afspraak gepland!");
+      navigate("/bedankt-showroom");
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast.error("Er ging iets mis bij het verzenden. Probeer het opnieuw.");
+    }
   };
 
   const nextStep = async () => {
