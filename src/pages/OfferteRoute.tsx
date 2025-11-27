@@ -19,6 +19,7 @@ import {
 import { FormProgress } from "@/components/FormProgress";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
+import { sendFormEmail } from "@/lib/emailService";
 
 const formSchema = z.object({
   producten: z.array(z.string()).min(1, "Selecteer minimaal één product"),
@@ -58,10 +59,38 @@ const OfferteRoute = () => {
   const watchProducten = form.watch("producten");
   const showKozijnenVraag = watchProducten?.includes("kozijnen");
 
-  const onSubmit = (data: FormData) => {
-    console.log("Form submitted:", data);
-    toast.success("Formulier verzonden!");
-    navigate(isThuisAfspraak ? "/bedankt-thuis-afspraak" : "/bedankt-offerte");
+  const onSubmit = async (data: FormData) => {
+    try {
+      // Verzend email met formuliergegevens
+      await sendFormEmail({
+        type: isThuisAfspraak ? 'Thuis afspraak' : 'Offerte aanvragen',
+        pageUrl: window.location.href,
+        timestamp: new Date().toLocaleString('nl-NL'),
+        fields: {
+          voornaam: data.voornaam,
+          achternaam: data.achternaam,
+          adres: data.adres,
+          huisnummer: data.nummer,
+          postcode: data.postcode,
+          woonplaats: data.woonplaats,
+          email: data.email,
+          telefoon: data.telefoon,
+          opmerking: data.opmerkingen,
+          products: data.producten,
+          anderProduct: data.anderProduct,
+          aantalKozijnen: data.aantalKozijnen,
+          orientation: data.orientatie,
+          contactVoorkeur: data.contactvoorkeur,
+          contactTiming: data.bereikbaarheid,
+        }
+      });
+      
+      toast.success("Formulier verzonden!");
+      navigate(isThuisAfspraak ? "/bedankt-thuis-afspraak" : "/bedankt-offerte");
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast.error("Er ging iets mis bij het verzenden. Probeer het opnieuw.");
+    }
   };
 
   const nextStep = async () => {

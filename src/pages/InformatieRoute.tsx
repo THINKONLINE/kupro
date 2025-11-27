@@ -20,6 +20,7 @@ import {
 import { FormProgress } from "@/components/FormProgress";
 import { ArrowLeft, ArrowRight, Upload } from "lucide-react";
 import { toast } from "sonner";
+import { sendFormEmail } from "@/lib/emailService";
 
 const MAX_FILE_SIZE = 5000000; // 5MB
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
@@ -65,10 +66,38 @@ const InformatieRoute = () => {
     },
   });
 
-  const onSubmit = (data: FormData) => {
-    console.log("Form submitted:", data);
-    toast.success("Aanvraag verzonden!");
-    navigate("/bedankt-informatie");
+  const onSubmit = async (data: FormData) => {
+    try {
+      // Verzend email met formuliergegevens
+      await sendFormEmail({
+        type: 'Meer informatie opvragen',
+        pageUrl: window.location.href,
+        timestamp: new Date().toLocaleString('nl-NL'),
+        fields: {
+          voornaam: data.voornaam,
+          achternaam: data.achternaam,
+          adres: data.adres,
+          huisnummer: data.nummer,
+          postcode: data.postcode,
+          woonplaats: data.woonplaats,
+          email: data.email,
+          telefoon: data.telefoon,
+          opmerking: data.opmerkingen,
+          products: data.producten,
+          anderProduct: data.anderProduct,
+          wensen: data.wensen,
+          bestandsnaam: fileName || '(geen bijlage)',
+          contactVoorkeur: data.contactvoorkeur,
+          contactTiming: data.bereikbaarheid,
+        }
+      });
+      
+      toast.success("Aanvraag verzonden!");
+      navigate("/bedankt-informatie");
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast.error("Er ging iets mis bij het verzenden. Probeer het opnieuw.");
+    }
   };
 
   const nextStep = async () => {
