@@ -272,21 +272,51 @@ const ShowroomRoute = () => {
                         </p>
                       </div>
                       
-                      {/* Calendly Inline Widget */}
-                      <div className="rounded-lg border bg-card overflow-hidden" style={{ minHeight: '700px' }}>
-                        <iframe
-                          src="https://calendly.com/jouw-calendly-link"
-                          width="100%"
-                          height="700"
-                          frameBorder="0"
-                          title="Calendly Afspraak"
-                          className="rounded-lg"
-                        />
-                      </div>
-                      
-                      <p className="text-xs text-muted-foreground text-center">
-                        ⚠️ Vervang de Calendly URL in de code met jouw eigen Calendly link
-                      </p>
+                      {/* Cal.com Inline Widget */}
+                      <div 
+                        id="my-cal-inline-showroom-afspraak-kupro" 
+                        className="rounded-lg border bg-card overflow-auto" 
+                        style={{ width: '100%', height: '700px' }}
+                      />
+                      <script
+                        dangerouslySetInnerHTML={{
+                          __html: `
+                            (function (C, A, L) { 
+                              let p = function (a, ar) { a.q.push(ar); }; 
+                              let d = C.document; 
+                              C.Cal = C.Cal || function () { 
+                                let cal = C.Cal; 
+                                let ar = arguments; 
+                                if (!cal.loaded) { 
+                                  cal.ns = {}; 
+                                  cal.q = cal.q || []; 
+                                  d.head.appendChild(d.createElement("script")).src = A; 
+                                  cal.loaded = true; 
+                                } 
+                                if (ar[0] === L) { 
+                                  const api = function () { p(api, arguments); }; 
+                                  const namespace = ar[1]; 
+                                  api.q = api.q || []; 
+                                  if(typeof namespace === "string"){
+                                    cal.ns[namespace] = cal.ns[namespace] || api;
+                                    p(cal.ns[namespace], ar);
+                                    p(cal, ["initNamespace", namespace]);
+                                  } else p(cal, ar); 
+                                  return;
+                                } 
+                                p(cal, ar); 
+                              }; 
+                            })(window, "https://app.cal.com/embed/embed.js", "init");
+                            Cal("init", "showroom-afspraak-kupro", {origin:"https://app.cal.com"});
+                            Cal.ns["showroom-afspraak-kupro"]("inline", {
+                              elementOrSelector:"#my-cal-inline-showroom-afspraak-kupro",
+                              config: {"layout":"month_view"},
+                              calLink: "kupro/showroom-afspraak-kupro",
+                            });
+                            Cal.ns["showroom-afspraak-kupro"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+                          `
+                        }}
+                      />
                     </div>
 
                     <div className="flex gap-4">
