@@ -1,9 +1,9 @@
 import emailjs from '@emailjs/browser';
 
 // EmailJS configuratie
-const EMAILJS_SERVICE_ID = 'service_eu83xgf';
-const EMAILJS_TEMPLATE_ID = 'template_g5vf9at';
-const EMAILJS_PUBLIC_KEY = 'd8wPu78CAEwTUSYvx';
+const EMAILJS_SERVICE_ID = 'service_5waocs8';
+const EMAILJS_TEMPLATE_ID = 'template_zau1wdm';
+const EMAILJS_PUBLIC_KEY = 'T8TiAUxaUpcL2hboT';
 
 // Initialize EmailJS
 emailjs.init(EMAILJS_PUBLIC_KEY);
