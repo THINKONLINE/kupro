@@ -43,7 +43,7 @@ const formSchema = z.object({
   nummer: z.string().optional(),
   postcode: z.string().optional(),
   woonplaats: z.string().optional(),
-  email: z.string().optional(),
+  email: z.string().email("Ongeldig emailadres").min(1, "Email is verplicht"),
   telefoon: z.string().min(1, "Telefoonnummer is verplicht"),
   opmerkingen: z.string().optional(),
   contactvoorkeur: z.enum(["bellen", "email", "whatsapp"]),
@@ -105,7 +105,7 @@ const InformatieRoute = () => {
     if (currentStep === 1) {
       fields = ["producten"];
     } else if (currentStep === 2) {
-      fields = ["voornaam", "achternaam", "telefoon"];
+      fields = ["voornaam", "achternaam", "email", "telefoon"];
     }
     
     const isValid = await form.trigger(fields);
@@ -364,7 +364,7 @@ const InformatieRoute = () => {
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Emailadres</FormLabel>
+                          <FormLabel>Emailadres *</FormLabel>
                           <FormControl>
                             <Input type="email" placeholder="jouw@email.nl" {...field} />
                           </FormControl>

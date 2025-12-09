@@ -5,6 +5,9 @@ const EMAILJS_SERVICE_ID = 'service_eu83xgf';
 const EMAILJS_TEMPLATE_ID = 'template_g5vf9at';
 const EMAILJS_PUBLIC_KEY = 'd8wPu78CAEwTUSYvx';
 
+// Initialize EmailJS
+emailjs.init(EMAILJS_PUBLIC_KEY);
+
 // Email configuratie - hier kun je het ontvangende emailadres aanpassen
 export const EMAIL_CONFIG = {
   recipientEmail: 'think.online.test@gmail.com', // <- Hier kun je het emailadres wijzigen
