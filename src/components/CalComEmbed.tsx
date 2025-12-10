@@ -20,17 +20,17 @@ export const CalComEmbed = ({ onNext, onPrev }: CalComEmbedProps) => {
   }, []);
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-300">
+    <div className="space-y-4 sm:space-y-6 animate-in fade-in duration-300">
       <div className="space-y-4">
         <div>
-          <h3 className="text-lg font-semibold mb-2">Plan je afspraak</h3>
-          <p className="text-sm text-muted-foreground mb-4">
+          <h3 className="text-base sm:text-lg font-semibold mb-2">Plan je afspraak</h3>
+          <p className="text-xs sm:text-sm text-muted-foreground mb-4">
             Selecteer hieronder een datum en tijd die je het beste uitkomt
           </p>
         </div>
 
         {/* Cal.com Inline Widget */}
-        <div className="rounded-lg border bg-card overflow-hidden" style={{ height: "700px" }}>
+        <div className="rounded-lg border bg-card overflow-hidden h-[500px] sm:h-[600px] md:h-[700px]">
           <Cal
             namespace="showroom-afspraak-kupro"
             calLink="kupro/showroom-afspraak-kupro"
@@ -40,7 +40,7 @@ export const CalComEmbed = ({ onNext, onPrev }: CalComEmbedProps) => {
         </div>
       </div>
 
-      <div className="flex gap-4">
+      <div className="flex gap-3 sm:gap-4">
         <Button
           type="button"
           variant="outline"
