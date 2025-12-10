@@ -35,31 +35,31 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-secondary/30 to-background">
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-4 py-6 sm:py-12">
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
             {/* Left side - Form options */}
-            <div className="space-y-8">
-              <div className="space-y-4">
-                <h1 className="text-4xl md:text-5xl font-bold text-foreground leading-tight">
+            <div className="space-y-6 sm:space-y-8">
+              <div className="space-y-3 sm:space-y-4">
+                <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-foreground leading-tight">
                   Hoe kunnen wij jou helpen?
                 </h1>
-                <p className="text-lg text-muted-foreground">
+                <p className="text-base sm:text-lg text-muted-foreground">
                   Kies hieronder wat het beste bij jouw situatie past
                 </p>
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 {options.map((option, index) => (
                   <Button
                     key={index}
                     variant={option.variant}
                     size="lg"
-                    className="w-full h-auto py-6 px-6 text-left justify-start gap-4 hover:scale-[1.02] transition-all duration-300 shadow-md hover:shadow-xl"
+                    className="w-full h-auto py-4 sm:py-6 px-4 sm:px-6 text-left justify-start gap-3 sm:gap-4 hover:scale-[1.02] transition-all duration-300 shadow-md hover:shadow-xl"
                     onClick={() => navigate(option.route)}
                   >
-                    <option.icon className="w-6 h-6 shrink-0" />
-                    <span className="text-base font-medium">{option.title}</span>
+                    <option.icon className="w-5 h-5 sm:w-6 sm:h-6 shrink-0" />
+                    <span className="text-sm sm:text-base font-medium">{option.title}</span>
                   </Button>
                 ))}
               </div>
