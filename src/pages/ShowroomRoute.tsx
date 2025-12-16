@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { format } from "date-fns";
+import { nl } from "date-fns/locale";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -17,16 +19,22 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { FormProgress } from "@/components/FormProgress";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { ArrowLeft, ArrowRight, CalendarIcon } from "lucide-react";
 import { toast } from "sonner";
 import { sendFormEmail } from "@/lib/emailService";
 import { CalComEmbed } from "@/components/CalComEmbed";
+import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
   producten: z.array(z.string()).min(1, "Selecteer minimaal één product"),
   anderProduct: z.string().optional(),
   aantalKozijnen: z.string().optional(),
   orientatie: z.string().min(1, "Maak een keuze"),
+  gewensteDatum: z.date().optional(),
+  gewensteTijd: z.string().optional(),
   voornaam: z.string().min(1, "Voornaam is verplicht"),
   achternaam: z.string().min(1, "Achternaam is verplicht"),
   adres: z.string().optional(),
@@ -76,6 +84,8 @@ const ShowroomRoute = () => {
           anderProduct: data.anderProduct,
           aantalKozijnen: data.aantalKozijnen,
           orientation: data.orientatie,
+          gewensteDatum: data.gewensteDatum ? format(data.gewensteDatum, 'dd MMMM yyyy', { locale: nl }) : undefined,
+          gewensteTijd: data.gewensteTijd,
         }
       });
       
@@ -264,7 +274,96 @@ const ShowroomRoute = () => {
                 )}
 
                 {currentStep === 2 && (
-                  <CalComEmbed onNext={nextStep} onPrev={() => setCurrentStep(1)} />
+                  <div className="space-y-6 animate-in fade-in duration-300">
+                    <CalComEmbed onNext={nextStep} onPrev={() => setCurrentStep(1)} />
+                    
+                    <div className="border-t pt-6 mt-6">
+                      <p className="text-sm text-muted-foreground mb-4">
+                        Of geef hieronder je gewenste datum en tijd door:
+                      </p>
+                      
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <FormField
+                          control={form.control}
+                          name="gewensteDatum"
+                          render={({ field }) => (
+                            <FormItem className="flex flex-col">
+                              <FormLabel>Gewenste datum</FormLabel>
+                              <Popover>
+                                <PopoverTrigger asChild>
+                                  <FormControl>
+                                    <Button
+                                      variant="outline"
+                                      className={cn(
+                                        "w-full pl-3 text-left font-normal",
+                                        !field.value && "text-muted-foreground"
+                                      )}
+                                    >
+                                      {field.value ? (
+                                        format(field.value, "d MMMM yyyy", { locale: nl })
+                                      ) : (
+                                        <span>Selecteer een datum</span>
+                                      )}
+                                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                    </Button>
+                                  </FormControl>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-auto p-0" align="start">
+                                  <Calendar
+                                    mode="single"
+                                    selected={field.value}
+                                    onSelect={field.onChange}
+                                    disabled={(date) => date < new Date()}
+                                    initialFocus
+                                    locale={nl}
+                                    className={cn("p-3 pointer-events-auto")}
+                                  />
+                                </PopoverContent>
+                              </Popover>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <FormField
+                          control={form.control}
+                          name="gewensteTijd"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Gewenste tijd</FormLabel>
+                              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                <FormControl>
+                                  <SelectTrigger>
+                                    <SelectValue placeholder="Selecteer een tijd" />
+                                  </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                  <SelectItem value="09:00">09:00</SelectItem>
+                                  <SelectItem value="09:30">09:30</SelectItem>
+                                  <SelectItem value="10:00">10:00</SelectItem>
+                                  <SelectItem value="10:30">10:30</SelectItem>
+                                  <SelectItem value="11:00">11:00</SelectItem>
+                                  <SelectItem value="11:30">11:30</SelectItem>
+                                  <SelectItem value="12:00">12:00</SelectItem>
+                                  <SelectItem value="12:30">12:30</SelectItem>
+                                  <SelectItem value="13:00">13:00</SelectItem>
+                                  <SelectItem value="13:30">13:30</SelectItem>
+                                  <SelectItem value="14:00">14:00</SelectItem>
+                                  <SelectItem value="14:30">14:30</SelectItem>
+                                  <SelectItem value="15:00">15:00</SelectItem>
+                                  <SelectItem value="15:30">15:30</SelectItem>
+                                  <SelectItem value="16:00">16:00</SelectItem>
+                                  <SelectItem value="16:30">16:30</SelectItem>
+                                  <SelectItem value="17:00">17:00</SelectItem>
+                                </SelectContent>
+                              </Select>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                    </div>
+                  </div>
                 )}
 
                 {currentStep === 3 && (
