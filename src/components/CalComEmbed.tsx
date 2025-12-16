@@ -38,6 +38,10 @@ export const CalComEmbed = ({ onNext, onPrev }: CalComEmbedProps) => {
             config={{ layout: "month_view" }}
           />
         </div>
+        
+        <p className="text-sm font-medium text-red-600 mt-4">
+          Let op: Bevestig jouw afspraak door hieronder te klikken op 'Volgende stap'!
+        </p>
       </div>
 
       <div className="flex gap-3 sm:gap-4">
