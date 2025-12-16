@@ -40,7 +40,7 @@ export const CalComEmbed = ({ onNext, onPrev }: CalComEmbedProps) => {
         </div>
         
         <p className="text-sm font-medium text-red-600 mt-4">
-          Let op: Bevestig jouw afspraak door hieronder te klikken op 'Volgende stap'!
+          Let op: klik eerst op 'Bevestig' en ga daarna door naar 'Volgende stap'.
         </p>
       </div>
 
