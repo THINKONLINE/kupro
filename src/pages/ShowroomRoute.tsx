@@ -279,6 +279,14 @@ const ShowroomRoute = () => {
                       <p className="text-sm text-muted-foreground">
                         Selecteer je gewenste datum en tijd voor het showroombezoek.
                       </p>
+                      <p className="text-sm text-muted-foreground">
+                        <span className="font-medium text-foreground">Locatie:</span> Prinsenhoeven 7, 5017 GC Tilburg
+                      </p>
+                      <div className="text-xs text-muted-foreground bg-secondary/50 p-3 rounded-lg">
+                        <span className="font-medium">Openingstijden:</span><br />
+                        Dinsdag t/m vrijdag: 12:00 - 17:00<br />
+                        Zaterdag: 09:00 - 15:00
+                      </div>
                       
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <FormField
@@ -310,8 +318,16 @@ const ShowroomRoute = () => {
                                   <Calendar
                                     mode="single"
                                     selected={field.value}
-                                    onSelect={field.onChange}
-                                    disabled={(date) => date < new Date()}
+                                    onSelect={(date) => {
+                                      field.onChange(date);
+                                      // Reset tijd wanneer datum verandert
+                                      form.setValue("gewensteTijd", "");
+                                    }}
+                                    disabled={(date) => {
+                                      const day = date.getDay();
+                                      // 0 = zondag, 1 = maandag - gesloten
+                                      return date < new Date() || day === 0 || day === 1;
+                                    }}
                                     initialFocus
                                     locale={nl}
                                     className={cn("p-3 pointer-events-auto")}
@@ -326,38 +342,48 @@ const ShowroomRoute = () => {
                         <FormField
                           control={form.control}
                           name="gewensteTijd"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Gewenste tijd *</FormLabel>
-                              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                <FormControl>
-                                  <SelectTrigger className="border-primary/30 hover:border-primary focus:ring-primary">
-                                    <SelectValue placeholder="Selecteer een tijd" />
-                                  </SelectTrigger>
-                                </FormControl>
-                                <SelectContent>
-                                  <SelectItem value="09:00">09:00</SelectItem>
-                                  <SelectItem value="09:30">09:30</SelectItem>
-                                  <SelectItem value="10:00">10:00</SelectItem>
-                                  <SelectItem value="10:30">10:30</SelectItem>
-                                  <SelectItem value="11:00">11:00</SelectItem>
-                                  <SelectItem value="11:30">11:30</SelectItem>
-                                  <SelectItem value="12:00">12:00</SelectItem>
-                                  <SelectItem value="12:30">12:30</SelectItem>
-                                  <SelectItem value="13:00">13:00</SelectItem>
-                                  <SelectItem value="13:30">13:30</SelectItem>
-                                  <SelectItem value="14:00">14:00</SelectItem>
-                                  <SelectItem value="14:30">14:30</SelectItem>
-                                  <SelectItem value="15:00">15:00</SelectItem>
-                                  <SelectItem value="15:30">15:30</SelectItem>
-                                  <SelectItem value="16:00">16:00</SelectItem>
-                                  <SelectItem value="16:30">16:30</SelectItem>
-                                  <SelectItem value="17:00">17:00</SelectItem>
-                                </SelectContent>
-                              </Select>
-                              <FormMessage />
-                            </FormItem>
-                          )}
+                          render={({ field }) => {
+                            const selectedDate = form.watch("gewensteDatum");
+                            const dayOfWeek = selectedDate ? selectedDate.getDay() : null;
+                            
+                            // Zaterdag (6): 09:00 - 15:00
+                            // Dinsdag t/m vrijdag (2-5): 12:00 - 17:00
+                            const getTimeSlots = () => {
+                              if (dayOfWeek === 6) {
+                                // Zaterdag
+                                return ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00"];
+                              } else if (dayOfWeek && dayOfWeek >= 2 && dayOfWeek <= 5) {
+                                // Dinsdag t/m vrijdag
+                                return ["12:00", "13:00", "14:00", "15:00", "16:00", "17:00"];
+                              }
+                              return [];
+                            };
+                            
+                            const timeSlots = getTimeSlots();
+                            
+                            return (
+                              <FormItem>
+                                <FormLabel>Gewenste tijd *</FormLabel>
+                                <Select 
+                                  onValueChange={field.onChange} 
+                                  value={field.value}
+                                  disabled={!selectedDate}
+                                >
+                                  <FormControl>
+                                    <SelectTrigger className="border-primary/30 hover:border-primary focus:ring-primary">
+                                      <SelectValue placeholder={selectedDate ? "Selecteer een tijd" : "Selecteer eerst een datum"} />
+                                    </SelectTrigger>
+                                  </FormControl>
+                                  <SelectContent>
+                                    {timeSlots.map((time) => (
+                                      <SelectItem key={time} value={time}>{time}</SelectItem>
+                                    ))}
+                                  </SelectContent>
+                                </Select>
+                                <FormMessage />
+                              </FormItem>
+                            );
+                          }}
                         />
                       </div>
                     </div>
