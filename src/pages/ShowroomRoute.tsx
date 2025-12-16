@@ -25,7 +25,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { ArrowLeft, ArrowRight, CalendarIcon } from "lucide-react";
 import { toast } from "sonner";
 import { sendFormEmail } from "@/lib/emailService";
-import { CalComEmbed } from "@/components/CalComEmbed";
 import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
@@ -275,11 +274,10 @@ const ShowroomRoute = () => {
 
                 {currentStep === 2 && (
                   <div className="space-y-6 animate-in fade-in duration-300">
-                    <CalComEmbed onNext={nextStep} onPrev={() => setCurrentStep(1)} />
-                    
-                    <div className="border-t pt-6 mt-6">
-                      <p className="text-sm text-muted-foreground mb-4">
-                        Of geef hieronder je gewenste datum en tijd door:
+                    <div className="space-y-4">
+                      <h3 className="text-lg font-semibold text-foreground">Wanneer wil je langskomen?</h3>
+                      <p className="text-sm text-muted-foreground">
+                        Selecteer je gewenste datum en tijd voor het showroombezoek.
                       </p>
                       
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -288,14 +286,14 @@ const ShowroomRoute = () => {
                           name="gewensteDatum"
                           render={({ field }) => (
                             <FormItem className="flex flex-col">
-                              <FormLabel>Gewenste datum</FormLabel>
+                              <FormLabel>Gewenste datum *</FormLabel>
                               <Popover>
                                 <PopoverTrigger asChild>
                                   <FormControl>
                                     <Button
                                       variant="outline"
                                       className={cn(
-                                        "w-full pl-3 text-left font-normal",
+                                        "w-full pl-3 text-left font-normal border-primary/30 hover:border-primary hover:bg-primary/5",
                                         !field.value && "text-muted-foreground"
                                       )}
                                     >
@@ -304,7 +302,7 @@ const ShowroomRoute = () => {
                                       ) : (
                                         <span>Selecteer een datum</span>
                                       )}
-                                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                      <CalendarIcon className="ml-auto h-4 w-4 text-primary" />
                                     </Button>
                                   </FormControl>
                                 </PopoverTrigger>
@@ -330,10 +328,10 @@ const ShowroomRoute = () => {
                           name="gewensteTijd"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Gewenste tijd</FormLabel>
+                              <FormLabel>Gewenste tijd *</FormLabel>
                               <Select onValueChange={field.onChange} defaultValue={field.value}>
                                 <FormControl>
-                                  <SelectTrigger>
+                                  <SelectTrigger className="border-primary/30 hover:border-primary focus:ring-primary">
                                     <SelectValue placeholder="Selecteer een tijd" />
                                   </SelectTrigger>
                                 </FormControl>
@@ -362,6 +360,23 @@ const ShowroomRoute = () => {
                           )}
                         />
                       </div>
+                    </div>
+                    
+                    <div className="flex gap-4 pt-4">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => setCurrentStep(1)}
+                        className="flex-1"
+                        size="lg"
+                      >
+                        <ArrowLeft className="w-4 h-4 mr-2" />
+                        Vorige
+                      </Button>
+                      <Button type="button" onClick={nextStep} className="flex-1" size="lg">
+                        Volgende stap
+                        <ArrowRight className="w-4 h-4 ml-2" />
+                      </Button>
                     </div>
                   </div>
                 )}
