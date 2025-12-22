@@ -124,10 +124,7 @@ const ShowroomRoute = () => {
           </Button>
 
           <div className="bg-card rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-8">
-            <h1 className="text-xl sm:text-3xl font-bold text-foreground mb-2">Afspraak maken in de showroom</h1>
-            <p className="text-sm sm:text-base text-muted-foreground mb-6 sm:mb-8">
-              Plan jouw bezoek aan onze showroom in een paar eenvoudige stappen
-            </p>
+            <h1 className="text-xl sm:text-3xl font-bold text-foreground mb-6 sm:mb-8">Afspraak maken in de showroom</h1>
 
             <FormProgress 
               currentStep={currentStep} 
@@ -288,7 +285,7 @@ const ShowroomRoute = () => {
                         Zaterdag: 09:00 - 15:00
                       </div>
                       
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="flex flex-col gap-4">
                         <FormField
                           control={form.control}
                           name="gewensteDatum"
