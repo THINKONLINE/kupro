@@ -409,20 +409,20 @@ const OfferteRoute = () => {
                       )}
                     />
 
-                    <div className="flex gap-4">
+                    <div className="flex gap-3">
                       <Button
                         type="button"
                         variant="outline"
                         onClick={() => setCurrentStep(1)}
-                        className="flex-1"
+                        className="flex-1 text-sm sm:text-base px-3 sm:px-4"
                         size="lg"
                       >
-                        <ArrowLeft className="w-4 h-4 mr-2" />
-                        Vorige
+                        <ArrowLeft className="w-4 h-4 mr-1 sm:mr-2 shrink-0" />
+                        <span className="truncate">Vorige</span>
                       </Button>
-                      <Button type="button" onClick={nextStep} className="flex-1" size="lg">
-                        Volgende stap
-                        <ArrowRight className="w-4 h-4 ml-2" />
+                      <Button type="button" onClick={nextStep} className="flex-1 text-sm sm:text-base px-3 sm:px-4" size="lg">
+                        <span className="truncate">Volgende</span>
+                        <ArrowRight className="w-4 h-4 ml-1 sm:ml-2 shrink-0" />
                       </Button>
                     </div>
                   </div>
@@ -524,19 +524,19 @@ const OfferteRoute = () => {
                       )}
                     />
 
-                    <div className="flex gap-4">
+                    <div className="flex gap-3">
                       <Button
                         type="button"
                         variant="outline"
                         onClick={() => setCurrentStep(2)}
-                        className="flex-1"
+                        className="flex-1 text-sm sm:text-base px-3 sm:px-4"
                         size="lg"
                       >
-                        <ArrowLeft className="w-4 h-4 mr-2" />
-                        Vorige
+                        <ArrowLeft className="w-4 h-4 mr-1 sm:mr-2 shrink-0" />
+                        <span className="truncate">Vorige</span>
                       </Button>
-                      <Button type="submit" className="flex-1" size="lg">
-                        Neem contact met mij op
+                      <Button type="submit" className="flex-1 text-sm sm:text-base px-3 sm:px-4" size="lg">
+                        <span className="truncate">Verstuur</span>
                       </Button>
                     </div>
                   </div>
