@@ -35,11 +35,11 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-secondary/30 to-background">
-      <div className="container mx-auto px-4 py-8 sm:py-12">
+      <div className="container mx-auto px-6 sm:px-4 py-8 sm:py-12">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
             {/* Left side - Form options */}
-            <div className="space-y-6 sm:space-y-8 max-w-md mx-auto md:mx-0 w-full">
+            <div className="space-y-6 sm:space-y-8 max-w-sm sm:max-w-md mx-auto md:mx-0 w-full">
               <div className="space-y-3 sm:space-y-4 text-center md:text-left">
                 <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-foreground leading-tight">
                   Hoe kunnen wij jou helpen?
