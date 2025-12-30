@@ -114,18 +114,18 @@ const OfferteRoute = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-secondary/30 to-background py-6 sm:py-12">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-6 sm:px-4">
         <div className="max-w-2xl mx-auto">
           <Button
             variant="ghost"
             onClick={() => navigate("/contact-aanvragen")}
-            className="mb-4 sm:mb-6"
+            className="mb-4 sm:mb-6 -ml-2"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Terug
           </Button>
 
-          <div className="bg-card rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-8">
+          <div className="bg-card rounded-xl sm:rounded-2xl shadow-xl p-5 sm:p-8">
             <h1 className="text-xl sm:text-3xl font-bold text-foreground mb-2">{title}</h1>
             <p className="text-sm sm:text-base text-muted-foreground mb-6 sm:mb-8">
               Vul onderstaande gegevens in en we nemen zo snel mogelijk contact met je op
