@@ -34,32 +34,32 @@ const HomePage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-secondary/30 to-background">
-      <div className="container mx-auto px-6 sm:px-4 py-8 sm:py-12">
-        <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen max-h-screen md:max-h-none bg-gradient-to-br from-background via-secondary/30 to-background overflow-hidden md:overflow-auto">
+      <div className="container mx-auto px-4 py-4 sm:py-8 md:py-12 h-screen md:h-auto flex items-center md:block">
+        <div className="max-w-[360px] sm:max-w-6xl mx-auto w-[92vw] sm:w-full">
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
             {/* Left side - Form options */}
-            <div className="space-y-6 sm:space-y-8 max-w-sm sm:max-w-md mx-auto md:mx-0 w-full">
-              <div className="space-y-3 sm:space-y-4 text-center md:text-left">
-                <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-foreground leading-tight">
+            <div className="space-y-4 sm:space-y-8 max-w-sm sm:max-w-md mx-auto md:mx-0 w-full">
+              <div className="space-y-2 sm:space-y-4 text-center md:text-left">
+                <h1 className="text-xl sm:text-4xl md:text-5xl font-bold text-foreground leading-tight">
                   Hoe kunnen wij jou helpen?
                 </h1>
-                <p className="text-base sm:text-lg text-muted-foreground">
+                <p className="text-sm sm:text-lg text-muted-foreground">
                   Kies hieronder wat het beste bij jouw situatie past
                 </p>
               </div>
 
-              <div className="space-y-3 sm:space-y-4">
+              <div className="space-y-2.5 sm:space-y-4">
                 {options.map((option, index) => (
                   <Button
                     key={index}
                     variant={option.variant}
                     size="lg"
-                    className="w-full h-auto py-4 sm:py-6 px-4 sm:px-6 text-left justify-start gap-3 sm:gap-4 hover:scale-[1.02] transition-all duration-300 shadow-md hover:shadow-xl"
+                    className="w-full h-auto py-3 sm:py-6 px-4 sm:px-6 text-left justify-start gap-2.5 sm:gap-4 hover:scale-[1.02] transition-all duration-300 shadow-md hover:shadow-xl"
                     onClick={() => navigate(option.route)}
                   >
-                    <option.icon className="w-5 h-5 sm:w-6 sm:h-6 shrink-0" />
-                    <span className="text-sm sm:text-base font-medium">{option.title}</span>
+                    <option.icon className="w-4 h-4 sm:w-6 sm:h-6 shrink-0" />
+                    <span className="text-[15px] sm:text-base font-medium leading-snug">{option.title}</span>
                   </Button>
                 ))}
               </div>
