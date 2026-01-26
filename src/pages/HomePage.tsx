@@ -35,7 +35,7 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen max-h-screen md:max-h-none bg-gradient-to-br from-background via-secondary/30 to-background overflow-hidden md:overflow-auto">
-      <div className="container mx-auto px-4 py-4 sm:py-8 md:py-12 h-screen md:h-auto flex items-center md:block">
+      <div className="container mx-auto px-4 pt-3 pb-4 sm:py-8 md:py-12 mt-0 h-screen md:h-auto flex items-start md:items-center md:block">
         <div className="w-full max-w-[380px] sm:max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
             {/* Left side - Form options */}
