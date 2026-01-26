@@ -18,25 +18,15 @@ import {
   FormDescription,
 } from "@/components/ui/form";
 import { FormProgress } from "@/components/FormProgress";
-import { ArrowLeft, ArrowRight, Upload } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 import { sendFormEmail } from "@/lib/emailService";
 
-const MAX_FILE_SIZE = 5000000; // 5MB
-const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
 
 const formSchema = z.object({
   producten: z.array(z.string()).min(1, "Selecteer minimaal één product"),
   anderProduct: z.string().optional(),
   wensen: z.string().optional(),
-  foto: z
-    .any()
-    .refine((file) => !file || file?.size <= MAX_FILE_SIZE, `Max bestandsgrootte is 5MB.`)
-    .refine(
-      (file) => !file || ACCEPTED_IMAGE_TYPES.includes(file?.type),
-      "Alleen .jpg, .jpeg, .png en .webp bestanden zijn toegestaan."
-    )
-    .optional(),
   voornaam: z.string().min(1, "Voornaam is verplicht"),
   achternaam: z.string().min(1, "Achternaam is verplicht"),
   adres: z.string().optional(),
@@ -55,7 +45,6 @@ type FormData = z.infer<typeof formSchema>;
 const InformatieRoute = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
-  const [fileName, setFileName] = useState<string>("");
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -86,7 +75,7 @@ const InformatieRoute = () => {
           products: data.producten,
           anderProduct: data.anderProduct,
           wensen: data.wensen,
-          bestandsnaam: fileName || '(geen bijlage)',
+          
           contactVoorkeur: data.contactvoorkeur,
           contactTiming: data.bereikbaarheid,
         }
@@ -220,48 +209,6 @@ const InformatieRoute = () => {
                       )}
                     />
 
-                    <FormField
-                      control={form.control}
-                      name="foto"
-                      render={({ field: { value, onChange, ...field } }) => (
-                        <FormItem>
-                          <FormLabel>Upload hier jouw foto (optioneel)</FormLabel>
-                          <FormControl>
-                            <div className="flex items-center gap-4">
-                              <Input
-                                type="file"
-                                accept="image/*"
-                                className="hidden"
-                                id="foto-upload"
-                                onChange={(e) => {
-                                  const file = e.target.files?.[0];
-                                  if (file) {
-                                    setFileName(file.name);
-                                    onChange(file);
-                                  }
-                                }}
-                                {...field}
-                              />
-                              <label htmlFor="foto-upload">
-                                <Button type="button" variant="outline" asChild>
-                                  <span className="cursor-pointer">
-                                    <Upload className="w-4 h-4 mr-2" />
-                                    Kies bestand
-                                  </span>
-                                </Button>
-                              </label>
-                              {fileName && (
-                                <span className="text-sm text-muted-foreground">{fileName}</span>
-                              )}
-                            </div>
-                          </FormControl>
-                          <FormDescription>
-                            Max 5MB - JPG, PNG of WEBP
-                          </FormDescription>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
 
                     <Button type="button" onClick={nextStep} className="w-full" size="lg">
                       Volgende stap
