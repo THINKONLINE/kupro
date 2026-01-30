@@ -24,7 +24,7 @@ export interface FormSubmissionData {
 const BLOCK_FIELDS = {
   CONTACT: ['voornaam', 'achternaam', 'email', 'telefoon', 'contactVoorkeur', 'contactTiming'],
   ADRES: ['adres', 'huisnummer', 'postcode', 'woonplaats'],
-  AANVRAAG: ['products', 'anderProduct', 'aantalKozijnen', 'orientation'],
+  AANVRAAG: ['products', 'anderProduct', 'aantalKozijnen', 'orientation', 'gewensteDatum', 'gewensteTijd'],
   EXTRA: ['opmerking', 'wensen', 'bestandsnaam'],
 };
 
@@ -79,18 +79,10 @@ const buildEmailSections = (type: string, fields: Record<string, any>): {
   const extraFields = pickFilled(fields, BLOCK_FIELDS.EXTRA);
 
   return {
-    contact_block: Object.keys(contactFields).length > 0 
-      ? `=== CONTACT ===\n${formatLines(contactFields)}` 
-      : '',
-    adres_block: Object.keys(adresFields).length > 0 
-      ? `=== ADRES ===\n${formatLines(adresFields)}` 
-      : '',
-    aanvraag_block: Object.keys(aanvraagFields).length > 0 
-      ? `=== AANVRAAG ===\n${formatLines(aanvraagFields)}` 
-      : '',
-    extra_block: Object.keys(extraFields).length > 0 
-      ? `=== OPMERKINGEN / EXTRA ===\n${formatLines(extraFields)}` 
-      : '',
+    contact_block: formatLines(contactFields),
+    adres_block: formatLines(adresFields),
+    aanvraag_block: formatLines(aanvraagFields),
+    extra_block: formatLines(extraFields),
   };
 };
 
@@ -173,6 +165,8 @@ const formatFieldLabel = (key: string): string => {
     bestandsnaam: 'Bijlage',
     anderProduct: 'Anders, namelijk',
     wensen: 'Wensen / extra info',
+    gewensteDatum: 'Gewenste datum',
+    gewensteTijd: 'Gewenste tijd',
   };
   
   return labelMap[key] || key;
