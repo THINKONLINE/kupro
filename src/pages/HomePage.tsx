@@ -40,13 +40,10 @@ const HomePage = () => {
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
             {/* Left side - Form options */}
             <div className="space-y-4 sm:space-y-8 max-w-sm sm:max-w-md mx-auto md:mx-0 w-full">
-              <div className="space-y-2 sm:space-y-4 text-center md:text-left">
+              <div className="text-center md:text-left">
                 <h1 className="text-xl sm:text-4xl md:text-5xl font-bold text-foreground leading-tight">
                   Hoe kunnen wij jou helpen?
                 </h1>
-                <p className="text-sm sm:text-lg text-muted-foreground">
-                  Kies hieronder wat het beste bij jouw situatie past
-                </p>
               </div>
 
               <div className="space-y-3 sm:space-y-4">
