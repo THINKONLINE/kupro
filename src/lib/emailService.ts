@@ -10,7 +10,7 @@ emailjs.init(EMAILJS_PUBLIC_KEY);
 
 // Email configuratie - hier kun je het ontvangende emailadres aanpassen
 export const EMAIL_CONFIG = {
-  recipientEmail: 'think.online.test@gmail.com', // <- Hier kun je het emailadres wijzigen
+  recipientEmail: 'info@kupro.nl',
 };
 
 export interface FormSubmissionData {
